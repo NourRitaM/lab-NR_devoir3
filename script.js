@@ -2,8 +2,13 @@ const inputBox = document.getElementById("input-box"); //to take ellement form t
 const listContainer = document.getElementById("list-container");//return all the html element with the same id as the one put in ()
 const deleteDialog = document.getElementById("delete-dialog");
 const editDialog = document.getElementById("edit-dialog");
+const pinDialog = document.getElementById("pin-dialog");
 const cancelDeleteButton = document.getElementById("cancel-delete");
 const confirmDeleteButton = document.getElementById("confirm-delete");
+const pinDialogTitle = document.getElementById("pin-dialog-title");
+const pinDialogMessage = document.getElementById("pin-dialog-message");
+const cancelPinButton = document.getElementById("cancel-pin");
+const confirmPinButton = document.getElementById("confirm-pin");
 const editTaskInput = document.getElementById("edit-task-input");
 const editTaskError = document.getElementById("edit-task-error");
 const cancelEditButton = document.getElementById("cancel-edit");
@@ -14,6 +19,7 @@ let nextTaskOrder = 0; // for the order of the task
 let nextPinOrder = 0;
 let pendingDeleteItem = null;
 let pendingEditItem = null;
+let pendingPinItem = null;
 
 function addTask() {
     const text = inputBox.value.trim();  // the trim() remove sppace at the beginning and the end to only have the text 
@@ -52,14 +58,12 @@ function appendTask(task) {   // to create the task in the html body
     deleteButton.type = "button";
     deleteButton.className = "delete-task";
     deleteButton.setAttribute("aria-label", "Delete task");
-    deleteButton.textContent = "×";
 
     const editButton = document.createElement("button");
     editButton.type = "button";
     editButton.className = "edit-task";
     editButton.setAttribute("aria-label", "Edit task");
     editButton.title = "Edit task";
-    editButton.textContent = "✎";
 
     const pinButton = document.createElement("button");
     pinButton.type = "button";
@@ -154,12 +158,20 @@ listContainer.addEventListener("click", (event) => {
 
     const pinButton = event.target.closest(".pin-task");
     if (pinButton) {
-        const pinned = listItem.dataset.pinned !== "true";
-        listItem.dataset.pinned = String(pinned);
-        if (pinned) listItem.dataset.pinOrder = String(nextPinOrder++);
-        updatePinButton(pinButton, pinned);
-        reorderTasks();
-        saveData();
+        if (listItem.dataset.pinned !== "true") {
+            listItem.dataset.pinned = "true";
+            listItem.dataset.pinOrder = String(nextPinOrder++);
+            updatePinButton(pinButton, true);
+            reorderTasks();
+            saveData();
+            return;
+        }
+
+        pendingPinItem = listItem;
+        pinDialogTitle.textContent = "Unpin task?";
+        pinDialogMessage.textContent = "Do you want to unpin this task? It will return to its original position.";
+        confirmPinButton.textContent = "Yes, unpin it";
+        pinDialog.showModal();
         return;
     }
 
@@ -187,6 +199,7 @@ listContainer.addEventListener("click", (event) => {
 
 cancelDeleteButton.addEventListener("click", () => deleteDialog.close());
 cancelEditButton.addEventListener("click", () => editDialog.close());
+cancelPinButton.addEventListener("click", () => pinDialog.close());
 
 confirmDeleteButton.addEventListener("click", () => {
     if (pendingDeleteItem) {
@@ -203,6 +216,25 @@ deleteDialog.addEventListener("close", () => {
 
 deleteDialog.addEventListener("click", (event) => {
     if (event.target === deleteDialog) deleteDialog.close();
+});
+
+confirmPinButton.addEventListener("click", () => {
+    if (pendingPinItem) {
+        pendingPinItem.dataset.pinned = "false";
+        updatePinButton(pendingPinItem.querySelector(".pin-task"), false);
+        reorderTasks();
+        saveData();
+    }
+    pendingPinItem = null;
+    pinDialog.close();
+});
+
+pinDialog.addEventListener("close", () => {
+    pendingPinItem = null;
+});
+
+pinDialog.addEventListener("click", (event) => {
+    if (event.target === pinDialog) pinDialog.close();
 });
 
 saveEditButton.addEventListener("click", saveEditedTask);

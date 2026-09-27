@@ -68,13 +68,20 @@
 ul li {
     list-style:none;
     font-size:17px ;
-    padding:12px 124px 12px 50px;
+    padding:12px 132px 12px 50px;
     user-select: none;
     cursor:pointer ;
     position: relative;
     transition: transform 180ms ease;
 } /* no more bullet point in front of task 1, 2,3 */
 
+.task-text{
+    display:block;
+    max-width:100%;
+    overflow-wrap:anywhere;  /* so that when the text is close to the pin icon it goes back to another line */
+}
+
+/*@media applies CSS only when a condition is true*/
 @media (hover: hover) and (pointer: fine) {
     ul li:hover{
         transform:translateX(5px);
@@ -100,7 +107,7 @@ ul li {
     border-radius:50%;
     background:transparent;
     color:#555;
-    font-size:26px;
+    font-size:0;
     line-height:1;
     cursor:pointer;
 }
@@ -132,9 +139,38 @@ ul li {
     right:0;
 }
 
-.pin-task:hover,
-.edit-task:hover,
-.delete-task:hover{
+.edit-task::before,.delete-task::before,.delete-task::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    left:50%;
+    display:block;
+    background:#555;
+}
+
+.edit-task::before{
+    width:22px;
+    height:7px;
+    border-radius:2px;
+    clip-path:polygon(0 50%, 20% 0, 100% 0, 100% 100%, 20% 100%);  /* to create the pencil icon for the edit */
+    transform:translate(-50%, -50%) rotate(-45deg);
+}
+
+.delete-task::before,.delete-task::after{
+    width:23px;
+    height:3px;
+    border-radius:2px;
+}
+
+.delete-task::before{
+    transform:translate(-50%, -50%) rotate(45deg);
+}
+
+.delete-task::after{
+    transform:translate(-50%, -50%) rotate(-45deg);
+}
+
+.pin-task:hover,.edit-task:hover.delete-task:hover{
     background:#edeef0;
 }
 
@@ -208,13 +244,13 @@ ul li {
     font-size:15px;
 }
 
-#cancel-delete,
-#cancel-edit{
+#cancel-delete,#cancel-edit{
     color:#333;
     background:#edeef0;
 }
 
-#confirm-delete{
+#confirm-delete,
+#confirm-pin{
     color:#fff;
     background:#750b98;
 }
