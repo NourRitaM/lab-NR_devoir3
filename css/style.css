@@ -45,11 +45,12 @@
 }
 
 .character-button{
+    --character-size:110px;
     position:absolute;
     bottom:0;
     left:0;
-    width:110px;
-    height:110px;
+    width:var(--character-size);
+    height:var(--character-size);
     padding:0;
     overflow:hidden;
     border:0;
@@ -67,7 +68,7 @@
     max-width:none;
     object-fit:contain;
     mix-blend-mode:screen;
-    transform:translate(-50%, -50%);
+    transform:translate(-50%, -40%);
 }
 
 .character-button:focus-visible{
@@ -85,7 +86,7 @@
         transform:translateX(0);
     }
     50%{
-        transform:translateX(max(0px, calc(100vw - 110px)));
+        transform:translateX(max(0px, calc(100vw - var(--character-size))));
     }
 }
 
@@ -232,7 +233,7 @@ ul li {
     transform:translate(-50%, -50%) rotate(-45deg);
 }
 
-.pin-task:hover,.edit-task:hover.delete-task:hover{
+.pin-task:hover,.edit-task:hover,.delete-task:hover{
     background:#edeef0;
 }
 
@@ -345,5 +346,93 @@ ul li.checked{
 
 ul li.checked::before{
     background-image: url("../images/checked.png"); /* to makethe icon of the checked task when atask is done */
+}
+
+@media (max-width: 560px){  /* to make it mobile friendly*/
+    .container{
+        padding:24px 10px 96px;
+    }
+
+    .todo-app{
+        margin:36px auto 16px;
+        padding:28px 18px 48px;
+        border-radius:8px;
+    }
+
+    .todo-app h2{
+        font-size:22px;
+    }
+
+    .todo-app #icon{
+        width:42px;
+    }
+
+    .row{
+        gap:4px;
+        padding-left:12px;
+        border-radius:18px;
+    }
+
+    #input-box{
+        min-width:0;
+        padding:10px 8px;
+        font-size:16px;
+    }
+
+    .row > button{
+        flex:0 0 auto;
+        width:auto;
+        padding:12px 18px;
+        font-size:15px;
+    }
+
+    ul li{
+        padding:12px 106px 12px 42px;
+        font-size:16px;
+    }
+
+    ul li::before{
+        top:14px;
+        left:6px;
+        width:24px;
+        height:24px;
+    }
+
+    .pin-task,
+    .edit-task,
+    .delete-task{
+        width:30px;
+        height:30px;
+    }
+
+    .edit-task{
+        right:34px;
+    }
+
+    .pin-task{
+        right:68px;
+    }
+
+    .pin-task img{
+        width:21px;
+        height:21px;
+    }
+
+    .character-runway{
+        height:84px;
+    }
+
+    .character-button{
+        --character-size:84px;
+    }
+
+    .character-button img{
+        width:150px;
+        height:150px;
+    }
+
+    .app-dialog{
+        padding:20px;
+    }
 }
 
