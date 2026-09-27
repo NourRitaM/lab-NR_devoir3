@@ -3,6 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>TO-DO LIST APP</title>
+        <link rel="icon" type="image/png" href="images/character.png">
         <link rel="stylesheet" href="css/style.css">
     </head>
     <body>
@@ -20,6 +21,11 @@
                     <!--if we don't put the javascript file it will display task 1, 2, 3 -->
                 </ul>
             </div>
+        </div>
+        <div class="character-runway">
+            <button id="character-button" class="character-button" type="button" aria-label="Make the character move for 10 seconds" aria-pressed="false" title="Click to make me move">
+                <img src="images/character.png" alt="">
+            </button>
         </div>
         <dialog id="delete-dialog" class="app-dialog delete-dialog" aria-labelledby="delete-dialog-title" aria-describedby="delete-dialog-message">
             <h3 id="delete-dialog-title">Delete task?</h3>

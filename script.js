@@ -13,6 +13,7 @@ const editTaskInput = document.getElementById("edit-task-input");
 const editTaskError = document.getElementById("edit-task-error");
 const cancelEditButton = document.getElementById("cancel-edit");
 const saveEditButton = document.getElementById("save-edit");
+const characterButton = document.getElementById("character-button");
 const storageKey = "todo-tasks";  // creating a constant to save the tasks in the local storage , we write it in a constant to not have to write todo-tasks eeach time
 let nextTaskOrder = 0; // for the order of the task 
 //putting let here because it 's value will change unlike const
@@ -20,6 +21,7 @@ let nextPinOrder = 0;
 let pendingDeleteItem = null;
 let pendingEditItem = null;
 let pendingPinItem = null;
+let characterRoamTimer;
 
 function addTask() {
     const text = inputBox.value.trim();  // the trim() remove sppace at the beginning and the end to only have the text 
@@ -249,6 +251,19 @@ editDialog.addEventListener("close", () => {
 
 editDialog.addEventListener("click", (event) => {
     if (event.target === editDialog) editDialog.close();
+});
+
+characterButton.addEventListener("click", () => {
+    clearTimeout(characterRoamTimer);
+    characterButton.classList.remove("is-roaming");
+    characterButton.setAttribute("aria-pressed", "true");
+    void characterButton.offsetWidth;
+    characterButton.classList.add("is-roaming");
+
+    characterRoamTimer = setTimeout(() => {
+        characterButton.classList.remove("is-roaming");
+        characterButton.setAttribute("aria-pressed", "false");
+    }, 10000);
 });
 
 inputBox.addEventListener("keydown", (event) => {  // so that if we put enter it will add the task in the list withoutt clicking on add

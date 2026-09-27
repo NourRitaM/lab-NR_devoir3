@@ -8,7 +8,7 @@
     width:100%;
     min-height:100vh; /*100vh Viewport Height-> This is always equal to 100% of the browser window's height*/
     background:linear-gradient(135deg, rgb(163, 214, 247),#e3abf0);/*creates an image consisting of a progressive transition between two or more colors */
-    padding: 10px;
+    padding: 10px 10px 120px;
 }
 .todo-app{
     width: 100%;
@@ -31,6 +31,68 @@
     width:50px;
     margin-left :10px;
 
+}
+
+.character-runway{
+    position:fixed;
+    z-index:5;
+    right:0;
+    bottom:0;
+    left:0;
+    height:110px;
+    overflow:hidden;
+    pointer-events:none;
+}
+
+.character-button{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:110px;
+    height:110px;
+    padding:0;
+    overflow:hidden;
+    border:0;
+    background:transparent;
+    cursor:pointer;
+    pointer-events:auto;
+}
+
+.character-button img{
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:190px;
+    height:190px;
+    max-width:none;
+    object-fit:contain;
+    mix-blend-mode:screen;
+    transform:translate(-50%, -50%);
+}
+
+.character-button:focus-visible{
+    outline:3px solid #4a1a6e;
+    outline-offset:-4px;
+    border-radius:50%;
+}
+
+.character-button.is-roaming{
+    animation:character-roam 10s ease-in-out 1;
+}
+
+@keyframes character-roam{
+    0%, 100%{
+        transform:translateX(0);
+    }
+    50%{
+        transform:translateX(max(0px, calc(100vw - 110px)));
+    }
+}
+
+@media (prefers-reduced-motion: reduce){
+    .character-button.is-roaming{
+        animation:none;
+    }
 }
 
 .row{
