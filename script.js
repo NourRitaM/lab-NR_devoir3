@@ -31,20 +31,20 @@ function addTask() {
     saveData();
 }
 
-function appendTask(task) {
-    const listItem = document.createElement("li");
-    const order = Number.isInteger(task.order) ? task.order : nextTaskOrder;
-    const pinned = Boolean(task.pinned);
+function appendTask(task) {   // to create the task in the html body
+    const listItem = document.createElement("li"); // to create dynamically the element without writing them in the html file
+    const order = Number.isInteger(task.order) ? task.order : nextTaskOrder; // ternary condition
+    const pinned = Boolean(task.pinned); // for the pin if true it pin if false it doesn't
     const pinOrder = Number.isInteger(task.pinOrder) ? task.pinOrder : (pinned ? nextPinOrder : -1);
-
-    listItem.dataset.order = String(order);
+    
+    listItem.dataset.order = String(order);// we use string because the dataset is stock as a character chaine
     listItem.dataset.pinned = String(pinned);
     listItem.dataset.pinOrder = String(pinOrder);
     nextTaskOrder = Math.max(nextTaskOrder, order + 1);
     if (pinned) nextPinOrder = Math.max(nextPinOrder, pinOrder + 1);
     listItem.classList.toggle("checked", task.checked);
 
-    const taskText = document.createElement("span");
+    const taskText = document.createElement("span");  // we are putting now text not in the html file but throught the website directly
     taskText.className = "task-text";
     taskText.textContent = task.text;
 
@@ -71,11 +71,11 @@ function appendTask(task) {
     pinButton.appendChild(pinIcon);
     updatePinButton(pinButton, pinned);
 
-    listItem.append(taskText, pinButton, editButton, deleteButton);
-    listContainer.appendChild(listItem);
+    listItem.append(taskText, pinButton, editButton, deleteButton);   // to add all the ellement in the row so we have the TEXT , STAR(PIN), EDIT, DELETE
+    listContainer.appendChild(listItem); // to add it to the DOM
 }
 
-function updatePinButton(pinButton, pinned) {
+function updatePinButton(pinButton, pinned) {  // TO PIN / UNPIN THE ITEM IN THE ROW
     const label = pinned ? "Unpin task" : "Pin task";
     pinButton.classList.toggle("is-pinned", pinned);
     pinButton.setAttribute("aria-label", label);
@@ -83,13 +83,13 @@ function updatePinButton(pinButton, pinned) {
 }
 
 function reorderTasks() {
-    const tasks = Array.from(listContainer.querySelectorAll("li"));
-    tasks.sort((firstTask, secondTask) => {
+    const tasks = Array.from(listContainer.querySelectorAll("li"));   // to transform all the element into real JAVASCRIPT table
+    tasks.sort((firstTask, secondTask) => {  // the function will do a comparaison with the one after to see if it's pinned or no, if it's pinned we put fiirsttask before secondTask so that the pinned task come before the others
         const firstPinned = firstTask.dataset.pinned === "true";
         const secondPinned = secondTask.dataset.pinned === "true";
         if (firstPinned !== secondPinned) return firstPinned ? -1 : 1;
 
-        if (firstPinned) {
+        if (firstPinned) {  // if both of the task are pin we compare their positioln through number()
             const pinOrder = Number(secondTask.dataset.pinOrder) - Number(firstTask.dataset.pinOrder);
             if (pinOrder !== 0) return pinOrder;
         }
@@ -99,14 +99,14 @@ function reorderTasks() {
 }
 
 function saveData() {   // saving the data in the local storage
-    const tasks = Array.from(listContainer.querySelectorAll("li"), (listItem) => ({
+    const tasks = Array.from(listContainer.querySelectorAll("li"), (listItem) => ({  // to take all the li and transform it into object to be saved
         text: listItem.querySelector(".task-text").textContent,
         checked: listItem.classList.contains("checked"),
         pinned: listItem.dataset.pinned === "true",
         order: Number(listItem.dataset.order),
         pinOrder: Number(listItem.dataset.pinOrder)
     }));
-    localStorage.setItem(storageKey, JSON.stringify(tasks));
+    localStorage.setItem(storageKey, JSON.stringify(tasks));   //through this command the tasks are actually saved
 }
 
 function loadData() {  //saving the data so that when i load the page it still apppear , it doesn't dsappear from the page
@@ -219,7 +219,7 @@ editDialog.addEventListener("click", (event) => {
     if (event.target === editDialog) editDialog.close();
 });
 
-inputBox.addEventListener("keydown", (event) => {
+inputBox.addEventListener("keydown", (event) => {  // so that if we put enter it will add the task in the list withoutt clicking on add
     if (event.key === "Enter") addTask();
 });
 
