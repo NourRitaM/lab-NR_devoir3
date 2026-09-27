@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>TO-DO LIST APP</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <div class="container">
+            <div class="todo-app">
+                <h2>TO-DO List<img src="images/icon.png" id="icon"></h2>
+                <div class="row">
+                    <input type="text" id="input-box" placeholder="Add your text">
+                    <button onclick="addTask()">Add</button>
+                </div>
+                <ul id="list-container">
+                    <!-- <li class="checked">Task 1</li>
+                    <li>Task 2</li>
+                    <li>Task 3</li> -->   <!--the task are now hidden-->
+                    <!--if we don't put the javascript file it will display task 1, 2, 3 -->
+                </ul>
+            </div>
+        </div>
+        <dialog id="delete-dialog" class="app-dialog delete-dialog" aria-labelledby="delete-dialog-title" aria-describedby="delete-dialog-message">
+            <h3 id="delete-dialog-title">Delete task?</h3>
+            <p id="delete-dialog-message">Do you want to delete this task?</p>
+            <div class="dialog-actions">
+                <button type="button" id="cancel-delete">No</button>
+                <button type="button" id="confirm-delete">Yes, delete</button>
+            </div>
+        </dialog>
+        <dialog id="edit-dialog" class="app-dialog edit-dialog" aria-labelledby="edit-dialog-title">
+            <h3 id="edit-dialog-title">Edit task</h3>
+            <label class="dialog-input-label" for="edit-task-input">Task name</label>
+            <input id="edit-task-input" type="text" autocomplete="off">
+            <p id="edit-task-error" class="dialog-error" aria-live="polite"></p>
+            <div class="dialog-actions">
+                <button type="button" id="cancel-edit">Cancel</button>
+                <button type="button" id="save-edit">Save</button>
+            </div>
+        </dialog>
+    <script src="script.js"></script>
+    </body>
+</html>
