@@ -5,10 +5,11 @@ A responsive to-do list built with HTML, CSS, and JavaScript. Tasks are saved in
 ## Features
 
 - Add, edit, complete, and delete tasks
-- Pin tasks to the top and restore their original position when unpinned
-- Confirmation dialogs for deleting and unpinning
+- Pin tasks to the top then restore their original position when unpinned from the page
+- Confirmation pop-up for deleting and unpinning
 - Responsive mobile layout
-- Click the character at the bottom to make it move across the screen
+-edit pop-up instead of alert 
+- Clickable character at the bottom that move across the screen
 
 ## Run
 
