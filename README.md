@@ -6,9 +6,9 @@ A responsive to-do list built with HTML, CSS, and JavaScript. Tasks are saved in
 
 - Add, edit, complete, and delete tasks
 - Pin tasks to the top then restore their original position when unpinned from the page
-- Confirmation pop-up for deleting and unpinning
+- Confirmation for deleting and unpinning
 - Responsive mobile layout
--edit pop-up instead of alert 
+-edit section
 - Clickable character at the bottom that move across the screen
 
 ## Run
@@ -47,4 +47,4 @@ Open `index.html` in a web browser. Tasks are saved separately by browser and pa
 
 ### Unpin confirmation
 
-![Unpin confirmation dialog](images/screenshots/unpin-pin.png)
+![Unpin confirmation dialog](images/screenshots/unpin.png)

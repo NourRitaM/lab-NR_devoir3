@@ -23,36 +23,11 @@
             </div>
         </div>
         <div class="character-runway">
-            <button id="character-button" class="character-button" type="button" aria-label="Make the character move for 10 seconds" aria-pressed="false" title="Click to make me move">
+            <input id="character-toggle" class="character-toggle" type="checkbox" aria-label="Move the character">
+            <label class="character-button" for="character-toggle">
                 <img src="images/character.png" alt="">
-            </button>
+            </label>
         </div>
-        <dialog id="delete-dialog" class="app-dialog delete-dialog" aria-labelledby="delete-dialog-title" aria-describedby="delete-dialog-message">
-            <h3 id="delete-dialog-title">Delete task?</h3>
-            <p id="delete-dialog-message">Do you want to delete this task?</p>
-            <div class="dialog-actions">
-                <button type="button" id="cancel-delete">No</button>
-                <button type="button" id="confirm-delete">Yes, delete</button>
-            </div>
-        </dialog>
-        <dialog id="edit-dialog" class="app-dialog edit-dialog" aria-labelledby="edit-dialog-title">
-            <h3 id="edit-dialog-title">Edit task</h3>
-            <label class="dialog-input-label" for="edit-task-input">Task name</label>
-            <input id="edit-task-input" type="text" autocomplete="off">
-            <p id="edit-task-error" class="dialog-error" aria-live="polite"></p>
-            <div class="dialog-actions">
-                <button type="button" id="cancel-edit">Cancel</button>
-                <button type="button" id="save-edit">Save</button>
-            </div>
-        </dialog>
-        <dialog id="pin-dialog" class="app-dialog pin-dialog" aria-labelledby="pin-dialog-title" aria-describedby="pin-dialog-message">
-            <h3 id="pin-dialog-title">Pin task?</h3>
-            <p id="pin-dialog-message">Do you want to pin this task?</p>
-            <div class="dialog-actions">
-                <button type="button" id="cancel-pin">No</button>
-                <button type="button" id="confirm-pin">Yes, pin it</button>
-            </div>
-        </dialog>
-    <script src="script.js"></script>
+    <script src="scripts.js"></script>
     </body>
 </html>

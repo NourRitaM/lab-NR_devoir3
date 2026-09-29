@@ -44,6 +44,15 @@
     pointer-events:none;
 }
 
+.character-toggle{
+    position:absolute;
+    width:1px;
+    height:1px;
+    overflow:hidden;
+    clip-path:inset(50%);
+    white-space:nowrap;
+}
+
 .character-button{
     --character-size:110px;
     position:absolute;
@@ -71,27 +80,27 @@
     transform:translate(-50%, -40%);
 }
 
-.character-button:focus-visible{
+.character-toggle:focus-visible + .character-button{
     outline:3px solid #4a1a6e;
     outline-offset:-4px;
     border-radius:50%;
 }
 
-.character-button.is-roaming{
-    animation:character-roam 10s ease-in-out 1;
+.character-toggle:checked + .character-button{
+    animation:character-roam 10s ease-in-out infinite alternate;
 }
 
 @keyframes character-roam{
-    0%, 100%{
+    0%{
         transform:translateX(0);
     }
-    50%{
+    100%{
         transform:translateX(max(0px, calc(100vw - var(--character-size))));
     }
 }
 
 @media (prefers-reduced-motion: reduce){
-    .character-button.is-roaming{
+    .character-toggle:checked + .character-button{
         animation:none;
     }
 }
@@ -138,191 +147,6 @@ ul li {
     transition: transform 180ms ease;
 } /* no more bullet point in front of task 1, 2,3 */
 
-.task-text{
-    display:block;
-    max-width:100%;
-    overflow-wrap:anywhere;  /* so that when the text is close to the pin icon it goes back to another line */
-}
-
-/*@media applies CSS only when a condition is true*/
-@media (hover: hover) and (pointer: fine) {
-    ul li:hover{
-        transform:translateX(5px);
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    ul li{
-        transition:none;
-    }
-}
-
-.pin-task,
-.edit-task,
-.delete-task{
-    position:absolute;
-    top:50%;
-    transform:translateY(-50%);
-    width:36px;
-    height:36px;
-    padding:0;
-    border:0;
-    border-radius:50%;
-    background:transparent;
-    color:#555;
-    font-size:0;
-    line-height:1;
-    cursor:pointer;
-}
-
-.edit-task{
-    right:40px;
-    font-size:20px;
-}
-
-.pin-task{
-    right:80px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-}
-
-.pin-task img{
-    display:block;
-    width:24px;
-    height:24px;
-    object-fit:contain;
-}
-
-.pin-task.is-pinned{
-    background:#d8c3e8;
-}
-
-.delete-task{
-    right:0;
-}
-
-.edit-task::before,.delete-task::before,.delete-task::after{
-    content:"";
-    position:absolute;
-    top:50%;
-    left:50%;
-    display:block;
-    background:#555;
-}
-
-.edit-task::before{
-    width:22px;
-    height:7px;
-    border-radius:2px;
-    clip-path:polygon(0 50%, 20% 0, 100% 0, 100% 100%, 20% 100%);  /* to create the pencil icon for the edit */
-    transform:translate(-50%, -50%) rotate(-45deg);
-}
-
-.delete-task::before,.delete-task::after{
-    width:23px;
-    height:3px;
-    border-radius:2px;
-}
-
-.delete-task::before{
-    transform:translate(-50%, -50%) rotate(45deg);
-}
-
-.delete-task::after{
-    transform:translate(-50%, -50%) rotate(-45deg);
-}
-
-.pin-task:hover,.edit-task:hover,.delete-task:hover{
-    background:#edeef0;
-}
-
-.app-dialog{
-    width:min(360px, calc(100% - 32px));
-    margin:auto;
-    padding:24px;
-    border:0;
-    border-radius:10px;
-    color:#20242a;
-    background:#fff;
-    box-shadow:0 16px 48px rgba(0, 0, 0, 0.24);
-}
-
-.app-dialog::backdrop{
-    background:rgba(20, 24, 32, 0.48);
-}
-
-.app-dialog h3{
-    margin-bottom:8px;
-    color:#002765;
-    font-size:20px;
-}
-
-.app-dialog p{
-    color:#7e1d92;
-    line-height:1.5;
-}
-
-.dialog-input-label{
-    display:block;
-    margin-top:16px;
-    color:#333;
-    font-size:14px;
-}
-
-#edit-task-input{
-    width:100%;
-    margin-top:6px;
-    padding:10px 12px;
-    border:1px solid #aeb7c2;
-    border-radius:6px;
-    outline:none;
-    font-size:16px;
-}
-
-#edit-task-input:focus{
-    border-color:#4a1a6e;
-    box-shadow:0 0 0 2px rgba(74, 26, 110, 0.16);
-}
-
-.app-dialog .dialog-error{
-    min-height:1.3em;
-    margin-top:5px;
-    color:#41035a;
-    font-size:13px;
-}
-
-.dialog-actions{
-    display:flex;
-    justify-content:flex-end;
-    gap:10px;
-    margin-top:22px;
-}
-
-.dialog-actions button{
-    padding:9px 16px;
-    border:0;
-    border-radius:20px;
-    cursor:pointer;
-    font-size:15px;
-}
-
-#cancel-delete,#cancel-edit{
-    color:#333;
-    background:#edeef0;
-}
-
-#confirm-delete,
-#confirm-pin{
-    color:#fff;
-    background:#750b98;
-}
-
-#save-edit{
-    color:#fff;
-    background:#4a1a6e;
-}
-
 /* add one circle in front of all this list */
 ul li::before{
     content: '';
@@ -346,6 +170,53 @@ ul li.checked{
 
 ul li.checked::before{
     background-image: url("../images/checked.png"); /* to makethe icon of the checked task when atask is done */
+}
+
+ul li span {
+    position : absolute;
+    right:0;
+    top:5px;
+    width:40px;
+    height :40px;
+    font-size: 20px;
+    color: #555;
+    line-height: 40px;
+    text-align: center;
+}
+
+ul li span:hover{
+    background : #d0defa;
+    border-radius: 50%;
+  
+}
+
+li .delete {
+    right: 0;
+}
+
+li .edit {
+    right: 40px;
+}
+
+li .pin {
+    right: 80px;
+}
+
+li.pinned .pin {
+    color: #9305eb;
+}
+
+/*@media applies CSS only when a condition is true*/
+@media (hover: hover) and (pointer: fine) {
+    ul li:hover{
+        transform:translateX(5px);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ul li{
+        transition:none;
+    }
 }
 
 @media (max-width: 560px){  /* to make it mobile friendly*/
@@ -398,26 +269,6 @@ ul li.checked::before{
         height:24px;
     }
 
-    .pin-task,
-    .edit-task,
-    .delete-task{
-        width:30px;
-        height:30px;
-    }
-
-    .edit-task{
-        right:34px;
-    }
-
-    .pin-task{
-        right:68px;
-    }
-
-    .pin-task img{
-        width:21px;
-        height:21px;
-    }
-
     .character-runway{
         height:84px;
     }
@@ -430,9 +281,4 @@ ul li.checked::before{
         width:150px;
         height:150px;
     }
-
-    .app-dialog{
-        padding:20px;
-    }
 }
-
