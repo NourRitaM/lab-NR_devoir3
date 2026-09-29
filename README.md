@@ -4,12 +4,15 @@ A responsive to-do list built with HTML, CSS, and JavaScript. Tasks are saved in
 
 ## Features
 
-- Add, edit, complete, and delete tasks
-- Pin tasks to the top then restore their original position when unpinned from the page
-- Confirmation for deleting and unpinning
+- Add a task with the input and the Add button (or the Enter key)
+- Empty or whitespace-only tasks are refused with an alert
+- Mark a task as complete / incomplete (strikethrough)
+Edit a task with the pencil icon
+- Delete a task with the x icon (asks for confirmation)
+- Pin a task with the star icon: pinned tasks go to the top, and go back to their original position when unpinned
+- Tasks are saved in localStorage and are still there after a refresh
 - Responsive mobile layout
--edit section
-- Clickable character at the bottom that move across the screen
+- Clickable character at the bottom that moves across the screen
 
 ## Run
 

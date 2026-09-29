@@ -24,7 +24,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: bottom 20px;;
+    margin-bottom: 20px;;
 }
 
 .todo-app #icon {
@@ -121,7 +121,7 @@
     outline:none;
     background: transparent; /* we put int transparent and none so it doesn't show as a box with a background but fade into the background */
     padding:10px;
-    font-weight: 14px;
+    font-weight: 400;
     font-size:18px ;
 }
 .row > button{
@@ -144,6 +144,7 @@ ul li {
     user-select: none;
     cursor:pointer ;
     position: relative;
+    overflow-wrap: anywhere;
     transition: transform 180ms ease;
 } /* no more bullet point in front of task 1, 2,3 */
 
@@ -258,7 +259,7 @@ li.pinned .pin {
     }
 
     ul li{
-        padding:12px 106px 12px 42px;
+        padding:12px 132px 12px 42px;
         font-size:16px;
     }
 
